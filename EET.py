@@ -118,7 +118,7 @@ def Cfactor(f,i,n): # A continuous cash flow factor is called.
     elif (f == "P/G"):
         return (term-1-(n*((e**i)-1)))/(term*(((e**i)-1))**2)
     
-def GGfactor(i,j,n):    #A geometric gradiant factor is called.
+def Gfactor(i,j,n):    #A geometric gradiant factor is called.
     i = i/100
     j = j/100
     if (j == i):
@@ -209,7 +209,7 @@ def main(Input):    #Calculating Unit (The magic happens here!)
                 x += 1
             x = x+1
             while(Input[x] != "," and len(Input) > x):   
-                i = i+Input[x]    #reading j
+                j = j+Input[x]    #reading j
                 x += 1
             x = x+1
             while(Input[x] != ")" and len(Input) > x):   
