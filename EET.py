@@ -41,7 +41,7 @@ def instructions():
     print("| Note that these factors are for discrete cash flows. |")
     print("| For continuous cash flow, add a 0 to the end of name |")    
     print("| of factors. e.g. (P/F0,10%,10) is:                   |")
-    print("| 'Continuous Compounding,Single sum,Present Worth'    |")
+    print("| 'Continuous Compounding, Single sum, Present Worth'  |")
     print("| The geometric gradiant factor is also supported which|")
     print("| is in form: (P/A1,i,j,n) where j is the common ratio.|")
     print("| Interest rate must be a percentage and persent sign  |")
@@ -60,13 +60,15 @@ def instructions():
     print("| [1]: F/P   [2]: P/F   [3]: P/A   [4]: F/A   [5]: A/P |")
     print("| [6]: A/F   [7]: A/G   [8]: P/G   [9]: P/A1           |")
     print("|                                                      |")
-    print("| You can access to all keywords in Help ([04]: Help)  |")
-    print("| section for help. An Example for use of this method: |")
-    print("| Input: >>> [Enter] >>> Command:[2] >>> 20 >>> 3 >>>  |")
-    print("| [Enter] >>> Input: [Enter] >>> Command: [Enter]      |")
+    print("| An Example for use of this method:                   |")
+    print("| Input: >>> (Enter) >>> Command:2 >>> (Enter) >>> 20  |")
+    print("| >>> (Enter) >>> 3 >>> (Enter) >>> Input: (Enter)     |")
+    print("| >>> Command: (Enter)                                 |")
     print("| (P/F,20%,3)                                          |")
     print("| =(0.5787037037037038)                                |")
     print("| Ans = 0.5787037037037038                             |")
+    print("|                                                      |")
+    print("| You can access to all keywords in help ([04]:help).  |")
     print("|                                                      |")
     print("|   Command Section:                                   |")
     print("|  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯   |")
@@ -74,7 +76,7 @@ def instructions():
     print("| (Command:) allows to pass program's keywords like:   |")
     print("| [h] or [03]:View History     [i] or [01]:Instructions|")
     print("| [t] or [02]:Tabulate Factors                         |")
-    print("| Pressing Enter on keyboard reveals the answer.       |")
+    print("| Pressing Enter on keyboard also reveals the answer.  |")
     print("|______________________________________________________|")
     
 def Dfactor(f,i,n): # A discrete cash flow factor is called.
@@ -118,9 +120,9 @@ def Cfactor(f,i,n): # A continuous cash flow factor is called.
     elif (f == "P/G"):
         return (term-1-(n*((e**i)-1)))/(term*(((e**i)-1))**2)
     
-def Gfactor(i,j,n):    #A geometric gradiant factor is called.
-    i = i/100
-    j = j/100
+def GGfactor(i,j,n):    #A geometric gradiant factor is called.
+    i = (i/100)
+    j = (j/100)
     if (j == i):
         return n/(1+i)
     elif (j != i):
@@ -193,7 +195,8 @@ def main(Input):    #Calculating Unit (The magic happens here!)
                 while(Input[x] != ")" and len(Input) > x):   
                     n = n+Input[x]    #reading n 
                     x += 1
-                Input = Input.replace(Input[y:x],str(Cfactor(Factors[count],float(i),float(n))))
+                i , n = float(i) , float(n)
+                Input = Input.replace(Input[y:x],str(Cfactor(Factors[count],i,n)))
                 mark = 1 #mark 
         except(ValueError):
             Error()
@@ -208,14 +211,16 @@ def main(Input):    #Calculating Unit (The magic happens here!)
                 i = i+Input[x]    #reading i
                 x += 1
             x = x+1
+            print(i)
             while(Input[x] != "," and len(Input) > x):   
-                j = j+Input[x]    #reading j
+                j = i+Input[x]    #reading j
                 x += 1
             x = x+1
             while(Input[x] != ")" and len(Input) > x):   
                 n = n+Input[x]    #reading n 
                 x += 1
-            Input = Input.replace(Input[y:x],str(Gfactor(float(i),float(j),float(n))))
+            i , j , n = float(i) , float(j) , float(n)
+            Input = Input.replace(Input[y:x],str(GGfactor(i,j,n)))
             mark = 1 #mark 
     except(ValueError):
         Error()
@@ -234,7 +239,8 @@ def main(Input):    #Calculating Unit (The magic happens here!)
                 while(Input[x] != ")" and len(Input) > x):    
                     n = n+Input[x]    #reading n
                     x += 1
-                Input = Input.replace(Input[y:x],str(Dfactor(Factors[count],float(i),float(n))))
+                i , n = float(i) , float(n)
+                Input = Input.replace(Input[y:x],str(Dfactor(Factors[count],i,n)))
                 mark = 1 #mark 
         except(ValueError):
             Error()
@@ -246,29 +252,32 @@ def main(Input):    #Calculating Unit (The magic happens here!)
     return Input
 
 def HELP(): #HELP
-    print("                                                ")
-    print("=====================(Help)=====================")
-    print("                                                ")
-    print("Keywords For (Command:):                        ")
-    print(" [fp]: F/P   [pf]: P/F   [pa]: P/A   [fa]: F/A  ")
-    print(" [ap]: F/P   [af]: P/F   [ag]: P/A   [pg]: F/A  ")
-    print(" [fp0]: F/P0 [pf0]: P/F0 [pa0]: P/A0 [fa0]: F/A0")
-    print(" [ap0]: F/P0 [af0]: P/F0 [ag0]: P/A0 [pg0]: F/A0")
-    print(" Enter: =                [clr]: Clear Input     ")
-    print(" [help]: Help            [i]: Instructions      ")
-    print(" [h]: View History       [t]: Tabulate          ")
-    print("                                                ")
-    print("Num pad keywords:                               ")
-    print(" [1]: F/P    [2]: P/F    [3]: P/A    [4]: F/A   ")
-    print(" [5]: A/P    [6]: A/F    [7]: A/G    [8]: P/G   ")
-    print(" [9]: P/A1   [0]: Clear Input                   ")
-    print(" [10]: F/P0  [20]: P/F0  [30]: P/A0  [40]: F/A0 ")
-    print(" [50]: A/P0  [60]: A/F0  [70]: A/G0  [80]: P/G0 ")
-    print(" [01]: Instructions      [02]: Tabulate         ")
-    print(" [03]: View History      [04]: Help             ")
-    print("                                                ")
-    print("Note that these keywords are for (Command:).    ")
-    print("What are A/P or F/A0? Go to Instructions for more.")
+    print("                                                 ")
+    print("======================(Help)=====================")
+    print("                                                 ")
+    print("Only pressing Enter button on keyboard will      ")
+    print("reveal the answer.                               ")
+    print("                                                 ")    
+    print("Keywords For (Command:):                         ")
+    print(" [fp]:F/P    [pf]:P/F    [pa]:P/A    [fa]:F/A    ")
+    print(" [ap]:F/P    [af]:P/F    [ag]:P/A    [pg]:F/A    ")
+    print(" [fp0]:F/P0  [pf0]:P/F0  [pa0]:P/A0  [fa0]:F/A0  ")
+    print(" [ap0]:F/P0  [af0]:P/F0  [ag0]:P/A0  [pg0]:F/A0  ")
+    print(" [pa1]:P/A1              [clr]:Clear Input       ")
+    print(" [help]:Help             [i]:Instructions        ")
+    print(" [h]:View History        [t]:Tabulate            ")
+    print("                                                 ")
+    print("Num pad keywords:                                ")
+    print(" [1]:F/P     [2]:P/F     [3]:P/A     [4]:F/A     ")
+    print(" [5]:A/P     [6]:A/F     [7]:A/G     [8]:P/G     ")
+    print(" [9]:P/A1    [0]: Clear Input                    ")
+    print(" [10]:F/P0   [20]:P/F0   [30]:P/A0   [40]:F/A0   ")
+    print(" [50]:A/P0   [60]:A/F0   [70]:A/G0   [80]:P/G0   ")
+    print(" [01]:Instructions       [02]:Tabulate           ")
+    print(" [03]:View History       [04]:Help               ")
+    print("                                                 ")
+    print("Note that these keywords work for (Command:).    ")
+    print("What is A/P or F/A0? Go to Instructions for more.")
     
 
           
@@ -327,8 +336,8 @@ while(1):   #Program Starting...
         Input = Input+n+")"
         figure = Input
 
-    elif (command == "9"):  #Geometric Gradiant Factor
-        Input = Input+"("+Factors[int(command[0])-1]+"1,"
+    elif (command in ["9","pa1"]):  #Geometric Gradiant Factor
+        Input = Input+"(P/A1,"
         i = input(Input)
         Input = Input+i+"%,"
         j = input(Input)
