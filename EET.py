@@ -1,5 +1,3 @@
-
-
 # Engineering Economics Toolkit
 # Powered by HSS
 # Version: alpha
