@@ -74,7 +74,7 @@ def instructions():
     print("|                                                      |")
     print("|   Command Section:                                   |")
     print("|  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯   |")
-    print("| Press Enter at (Input:) to reach command section.    |")
+    print("| Press Enter at 'Input:' to reach command section.    |")
     print("| (Command:) allows to pass program's keywords like:   |")
     print("| [h] or [03]:View History     [i] or [01]:Instructions|")
     print("| [t] or [02]:Tabulate Factors                         |")
@@ -251,7 +251,7 @@ def main(Input):    #Calculating Unit (The magic happens here!)
         while(Input[count] == "(") and (Input[count-1] in ["0","1","2","3","4","5","6","7","8","9"]):
             Input = Input[:count]+"*"+Input[count:]   
 
-    return Input
+    return Input    #The resault 
 
 def HELP(): #HELP
     print("                                                 ")
@@ -260,7 +260,7 @@ def HELP(): #HELP
     print("Only pressing Enter button on keyboard will      ")
     print("reveal the answer.                               ")
     print("                                                 ")    
-    print("Keywords For (Command:):                         ")
+    print("Keywords For 'Command:' line:                    ")
     print(" [fp]:F/P    [pf]:P/F    [pa]:P/A    [fa]:F/A    ")
     print(" [ap]:F/P    [af]:P/F    [ag]:P/A    [pg]:F/A    ")
     print(" [fp0]:F/P0  [pf0]:P/F0  [pa0]:P/A0  [fa0]:F/A0  ")
@@ -278,11 +278,9 @@ def HELP(): #HELP
     print(" [01]:Instructions       [02]:Tabulate           ")
     print(" [03]:View History       [04]:Help               ")
     print("                                                 ")
-    print("Note that these keywords work for (Command:).    ")
+    print("Note that these keywords work for 'Command' line.")
     print("What is A/P or F/A0? Go to Instructions for more.")
-    
-
-          
+       
 while(1):   #Program Starting...
     Input = Input+input("\nInput:"+Input)
     print("[1]:F/P    [2]:P/F")
@@ -367,6 +365,6 @@ while(1):   #Program Starting...
     elif (command in ["0","clr"]): #Clearing Input
         Input = ""  #Clear Input
         
-    elif (command in ["help","04"]):    #Help
+    elif (command in ["help","04","Help"]):    #Help
         HELP() 
     
